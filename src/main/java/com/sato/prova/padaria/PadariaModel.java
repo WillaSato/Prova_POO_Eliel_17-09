@@ -1,12 +1,19 @@
 package com.sato.prova.padaria;
 
+import java.util.Collection;
+
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class PadariaModel {
+public class PadariaModel implements UserDetails {
     public Long getId() {
         return id;
     }
@@ -30,6 +37,14 @@ public class PadariaModel {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+    
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +52,26 @@ public class PadariaModel {
     private Long id;
     private String nome;
     private String endereco;
+    private String senha;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		if(this.role == UserRole.ADMIN) return
+				List.of(new SimpleGrantedAuthority("ADMIN"),
+				new SimpleGrantedAuthority("USER"));
+		else return List.of(new SimpleGrantedAuthority("USER");
+	}
+
+	@Override
+	public @Nullable String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

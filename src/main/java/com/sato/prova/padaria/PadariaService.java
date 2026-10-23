@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PadariaService {
@@ -33,6 +34,10 @@ public class PadariaService {
             padariaModel.setEndereco(padariaNew.getEndereco());
 
             return padariaRepository.save(padariaModel);
+        }
+        
+        public PadariaModel findByNome (String nome) {
+        	return padariaRepository.findByNome(nome).get();
         }
 
 }

@@ -39,9 +39,15 @@ public class PadariaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<PadariaModel> buscarId( @PathVariable Long id){
         PadariaModel response = padariaService.buscarPorId(id);
+        return ResponseEntity.ok().body(response);
+    }
+    
+    @GetMapping("/{nome}")
+    public ResponseEntity<PadariaModel> buscarPorNome( @PathVariable String nome){
+        PadariaModel response = padariaService.findByNome(nome);
         return ResponseEntity.ok().body(response);
     }
 
